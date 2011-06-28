@@ -22,8 +22,7 @@ Examples:
                        ''')
 
 def exist(domain):
-    if os.path.isfile(DOMAINS_FOLDER + domain): return True
-    else: return Flase
+    return True if os.path.isfile(DOMAINS_FOLDER + domain) else Flase
 
 def add(domain):
     if exist(domain):
@@ -45,23 +44,21 @@ def add_mass(filename):
     for domain in open(filename):
 	add(domain.replace('\n','',))
 
-#from optparse import OptionParser
-#parser = OptionParser()
-#parser.add_option("-h", "--help", help="write report to FILE", metavar="FILE")
-
 # ^-- Deprecated since version 2.7
 #import argparse
 #parser = argparse.ArgumentParser(description='Скрипт для добавления www доменов.')
 
 def main():
-    p = OptionParser(usage="Использование: %prog [опции] [файл|домен]", version="%prog 0.2")
+    p = OptionParser(usage="%prog [опции] [файл|домен]", version="%prog 0.2")
     p.add_option('-a','--add',dest='domain',
 		 help='Домен для добавления')
     p.add_option('-m','--mass',dest='filename',
 		 help='Файл для массового добавления доменов')
     (options, args) = p.parse_args()
-    domain = string(options.domain) if options.domain else None
-#    print(domain)
+    domain = options.domain if options.domain else None
+    filename = options.filename if options.filename else None
+    #print('проверка\n'+filename)
+
 
 #if len(sys.argv) > 1:
 #    try:

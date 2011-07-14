@@ -54,7 +54,6 @@ zone "''' + domain + '''" IN {
     print('Domain ' + domain + ' added')
 
 def domdelete(option, opt_str, domain, parser):
-
     os.system('cp '+CONFIG+' '+CONFIG+'.'+str(NOW))
     domfile = open(CONFIG+'.'+str(NOW), "r")
     start = -1
@@ -89,17 +88,8 @@ def add_mass(option, opt_str, filename, parser):
         add('','',domain.replace('\n','',),'')
 
 def delete_mass(option, opt_str, filename, parser):
-
     for domain in open(filename):
         domdelete('','',domain.replace('\n','',),'')
-
-#from optparse import OptionParser
-#parser = OptionParser()
-#parser.add_option("-h", "--help", help="write report to FILE", metavar="FILE")
-
-# ^-- Deprecated since version 2.7
-#import argparse
-#parser = argparse.ArgumentParser(description='Скрипт для добавления www доменов.')
 
 def main():
     return  0
@@ -130,5 +120,8 @@ p.add_option('-d','--delete',action='callback',  dest='domain', type='string',  
 p.add_option('-n','--massdel',action='callback',  dest='filename', type='string',  callback=delete_mass,
                  help='File to mass delete')
 (options, args) = p.parse_args()
+
+os.system('rndc reload')
+
 if __name__ == "__main__":
     main()
